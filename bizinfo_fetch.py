@@ -79,6 +79,11 @@ def _is_excluded_organization(organization: str) -> bool:
     return False
 
 
+def _has_leading_bracket_title(title: str) -> bool:
+    """공고명이 [강원], [경남], [부산ㆍ울산]처럼 대괄호로 시작하면 True를 반환합니다."""
+    return bool(re.match(r"^\s*\[[^\]]+\]", title or ""))
+
+
 def _first_value(item: dict[str, Any], candidates: list[str]) -> str:
     for key in candidates:
         if key in item and item[key] not in (None, ""):
@@ -369,6 +374,9 @@ def _fetch_category(config: dict[str, Any], category_name: str, category_code: s
                     "지원사업명",
                 ],
             )
+
+            if _has_leading_bracket_title(title):
+                continue
 
             category = (
                 _first_value(
