@@ -108,20 +108,19 @@ def build_html_message(new_notices: list[Notice], old_notices: list[Notice], tot
         target = html.escape(notice.target or "-")
         url = html.escape(notice.url or "")
 
-        link_html = f'<a href="{url}" target="_blank">바로가기</a>' if url else "-"
+        title_html = f'<a href="{url}" target="_blank" style="color:#2563eb;text-decoration:underline;">{title}</a>' if url else title
 
         rows.append(
             f"""
             <tr>
                 <td style="padding:8px;border:1px solid #ddd;text-align:center;">{idx}</td>
-                <td style="padding:8px;border:1px solid #ddd;font-weight:600;">{title}</td>
+                <td style="padding:8px;border:1px solid #ddd;font-weight:600;">{title_html}</td>
                 <td style="padding:8px;border:1px solid #ddd;text-align:center;">{category}</td>
                 <td style="padding:8px;border:1px solid #ddd;">{organization}</td>
                 <td style="padding:8px;border:1px solid #ddd;">{execution_org}</td>
                 <td style="padding:8px;border:1px solid #ddd;text-align:center;">{status}</td>
                 <td style="padding:8px;border:1px solid #ddd;text-align:center;white-space:nowrap;">{period}</td>
                 <td style="padding:8px;border:1px solid #ddd;">{target}</td>
-                <td style="padding:8px;border:1px solid #ddd;text-align:center;">{link_html}</td>
             </tr>
             """
         )
@@ -130,7 +129,7 @@ def build_html_message(new_notices: list[Notice], old_notices: list[Notice], tot
         rows.append(
             """
             <tr>
-                <td colspan="9" style="padding:16px;border:1px solid #ddd;text-align:center;">
+                <td colspan="8" style="padding:16px;border:1px solid #ddd;text-align:center;">
                     이번 실행에서 새로 확인된 공고는 없습니다.
                 </td>
             </tr>
@@ -174,7 +173,6 @@ def build_html_message(new_notices: list[Notice], old_notices: list[Notice], tot
                             <th style="padding:8px;border:1px solid #ddd;">상태</th>
                             <th style="padding:8px;border:1px solid #ddd;">신청기간</th>
                             <th style="padding:8px;border:1px solid #ddd;">지원대상</th>
-                            <th style="padding:8px;border:1px solid #ddd;">링크</th>
                         </tr>
                     </thead>
                     <tbody>
